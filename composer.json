@@ -1,0 +1,35 @@
+{
+    "name": "proklung/bitrix-fixture-database-generator-bundle",
+    "description": "Bitrix+Symfony fixture generator bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gavrilov Fedy",
+            "email": "fedor.gavrilov.75@mail.ru",
+            "homepage": "https://github.com/ProklUng"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ProklUng/bitrix.fixture.database.generator.bundle/issues",
+        "source": "https://github.com/ProklUng/bitrix.fixture.database.generator.bundle"
+    },
+    "autoload": {
+        "psr-4": {
+            "Prokl\\BitrixFixtureGeneratorBundle\\": ""
+        }
+    },
+    "require": {
+        "php": ">=7.1 | ~8.0",
+        "psr/container": "^1.0",
+        "symfony/dependency-injection": "^4.0 || ^5.0",
+        "symfony/http-kernel": "^4.0 || ^5.0",
+        "symfony/config": "~4|~5",
+        "symfony/filesystem": "~4|~5",
+        "symfony/console": "~4|~5",
+        "symfony/framework-bundle": "^4.0 || ^5.0",
+        "doctrine/annotations": "^1.10",
+        "mmo/faker-images": "^0.3.0",
+        "fzaninotto/faker": "^1.9"
+    }
+}

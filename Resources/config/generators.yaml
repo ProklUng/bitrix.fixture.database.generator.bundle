@@ -1,0 +1,256 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  #############################
+  # Особые обработчики фикстур
+  ############################
+
+  # Генерация реальных ID картинок из базы.
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\ImageIdGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\ImageIdGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  # Генерация реальных ID пользователей из базы.
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\UserIdGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\UserIdGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  # Генерация случайного html.
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\HtmlGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\HtmlGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  # Title
+  bitrix_fixture_generator.title_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\TextGenerator
+    arguments: [5, 128]
+    tags:
+      - { name: fixture_generator.item }
+
+  # Name
+  bitrix_fixture_generator.name_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\TextGenerator
+    arguments: [11, 120]
+    tags:
+      - { name: fixture_generator.item }
+
+  # Preview_text
+  bitrix_fixture_generator.preview_text_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\TextGenerator
+    arguments: [1024, 3000]
+    tags:
+      - { name: fixture_generator.item }
+
+  # Detail_text
+  bitrix_fixture_generator.detail_text_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\TextGenerator
+    arguments: [1024, 14000]
+    tags:
+      - { name: fixture_generator.item }
+
+  # Code
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\CodeGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\CodeGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  # Sort
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\SortGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\SortGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  # Image generator
+  bitrix_fixture_generator.preview_picture_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\ImageGenerator
+    arguments: [350, 350, true]
+    tags:
+      - { name: fixture_generator.item }
+
+  bitrix_fixture_generator.detail_picture_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\ImageGenerator
+    arguments: [1024, 1024, true]
+    tags:
+      - { name: fixture_generator.item }
+
+  # Image generator
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\ImageGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\ImageGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  # Даты
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\DateGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\DateGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  # Привязка к элементам.
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\LinkElementGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\LinkElementGenerator
+    arguments: ['@bitrix_fixture_generator.iblock_properties_manager', '@CIBlockElement']
+    tags:
+      - { name: fixture_generator.item }
+
+  # Привязка к случайному элементу.
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\RandomLinkElementGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\RandomLinkElementGenerator
+    arguments: ['@CIBlockElement']
+    tags:
+      - { name: fixture_generator.item }
+
+  # Множественная привязка к случайным элементам.
+  bitrix_fixture_generator.multiple_link_element_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\MultipleGeneratorDecorator
+    arguments:
+      - '@Prokl\BitrixFixtureGeneratorBundle\Services\Generators\RandomLinkElementGenerator'
+      - 3
+    tags:
+      - { name: fixture_generator.item }
+
+  # Множественная привязка к элементам.
+  bitrix_fixture_generator.multiple_link_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\MultipleGeneratorDecorator
+    arguments:
+      - '@Prokl\BitrixFixtureGeneratorBundle\Services\Generators\LinkElementGenerator'
+      - 3
+    tags:
+      - { name: fixture_generator.item }
+
+  # Привязка к случайному разделу.
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\RandomLinkSectionGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\RandomLinkSectionGenerator
+    arguments: ['@CIBlockSection']
+    tags:
+      - { name: fixture_generator.item }
+
+  # Множественная привязка к случайным разделам.
+  bitrix_fixture_generator.multiple_link_section_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\MultipleGeneratorDecorator
+    arguments:
+      - '@Prokl\BitrixFixtureGeneratorBundle\Services\Generators\RandomLinkSectionGenerator'
+      - 3
+    tags:
+      - { name: fixture_generator.item }
+
+  # Привязка к случайному разделу (обычные инфоблоки).
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\LinkSectionsGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\LinkSectionsGenerator
+    arguments: ['@bitrix_fixture_generator.iblock_properties_manager', '@CIBlockSection']
+    tags:
+      - { name: fixture_generator.item }
+
+  # Множественная привязка к случайным разделам (обычные инфоблоки).
+  bitrix_fixture_generator.multiple_link_element_section_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\MultipleGeneratorDecorator
+    arguments:
+      - '@Prokl\BitrixFixtureGeneratorBundle\Services\Generators\LinkSectionsGenerator'
+      - 3
+    tags:
+      - { name: fixture_generator.item }
+
+  # Списки
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\EnumGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\EnumGenerator
+    arguments: ['@bitrix_fixture_generator.iblock_properties_manager']
+    tags:
+      - { name: fixture_generator.item }
+
+  # Множественные списки.
+  bitrix_fixture_generator.multiple_enum_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\MultipleGeneratorDecorator
+    arguments:
+      - '@Prokl\BitrixFixtureGeneratorBundle\Services\Generators\EnumGenerator'
+      - 3
+    tags:
+      - { name: fixture_generator.item }
+
+  # Сентенция из 6 слов.
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\SentenceGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\SentenceGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  # Множественное поле типа Файл (картинки).
+  bitrix_fixture_generator.multiple_image_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\MultipleGeneratorDecorator
+    arguments:
+      - '@bitrix_fixture_generator.detail_picture_generator'
+      - 3
+    tags:
+      - { name: fixture_generator.item }
+
+  # Целое число.
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\IntGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\IntGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  # Множественное поле типа Число.
+  bitrix_fixture_generator.multiple_int_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\MultipleGeneratorDecorator
+    arguments:
+      - '@Prokl\BitrixFixtureGeneratorBundle\Services\Generators\IntGenerator'
+      - 5
+    tags:
+      - { name: fixture_generator.item }
+
+  # Строка.
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\StringGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\StringGenerator
+    arguments: [1, 128]
+    tags:
+      - { name: fixture_generator.item }
+
+  # Множественное поле типа Cтрока.
+  bitrix_fixture_generator.multiple_string_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\MultipleGeneratorDecorator
+    arguments:
+      - '@Prokl\BitrixFixtureGeneratorBundle\Services\Generators\SentenceGenerator'
+      - 5
+    tags:
+      - { name: fixture_generator.item }
+
+  # Базовая случайная опция.
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\BaseOptionGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\BaseOptionGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  #####################
+  # Кастомные свойства
+  #####################
+
+  # Признак да-нет
+  Prokl\BitrixFixtureGeneratorBundle\Services\Generators\YesNoGenerator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\YesNoGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  ###############################
+  # Пример кастомного генератора
+  ###############################
+
+  # Строка из слов длиной 50 символов.
+  bitrix_fixture_generator.short_string_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\StringGenerator
+    calls:
+      - setParams: [length: 50]
+    tags:
+      - { name: fixture_generator.item }
+
+  # Случайная опция.
+  bitrix_fixture_generator.options_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Generators\OptionGenerator
+    calls:
+      - setParams: [options:
+                      - "Вариант 1"
+                      - "Вариант 2"]
+    tags:
+      - { name: fixture_generator.item }

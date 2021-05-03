@@ -1,0 +1,51 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+  ##########
+  # Команды
+  ##########
+
+  # Наполнение кастомной таблицы фикстурой.
+  bitrix_fixture_generator.command_seed_database:
+    class: Prokl\BitrixFixtureGeneratorBundle\Command\SeedDatabaseCommand
+    arguments:
+      - '@bitrix_fixture_generator.fixture_generator'
+      - '@bitrix_fixture_generator.seeder_db'
+      - !tagged_locator { tag: 'bitrix_custom_table' }
+    tags:
+      - { name: console.command, comand: migrator:seed }
+
+  # Команда создания структуры проекта.
+  bitrix_fixture_generator.command_create_structure:
+    class: Prokl\BitrixFixtureGeneratorBundle\Command\StructureCreatorRunner
+    arguments: ['%bitrix_fixture_generator_test_project%']
+    tags:
+      - { name: console.command, comand: migrator:structure }
+
+  # Наполнение инфоблока элементами.
+  bitrix_fixture_generator.command_seed_elements:
+    class: Prokl\BitrixFixtureGeneratorBundle\Command\SeedElementsCommand
+    arguments:
+      - '@bitrix_fixture_generator.element_generator'
+      - '@bitrix_fixture_generator.iblock_element_eraser'
+    tags:
+      - { name: console.command, comand: migrator:elements }
+
+  # Наполнение hl-инфоблока элементами.
+  bitrix_fixture_generator.command_seed_hl_elements:
+    class: Prokl\BitrixFixtureGeneratorBundle\Command\SeedHlElementsCommand
+    arguments:
+      - '@bitrix_fixture_generator.hl_element_generator'
+      - '@bitrix_fixture_generator.hl_manager'
+    tags:
+      - { name: console.command, comand: migrator:elements-hl }
+
+  # Генерация пользователей.
+  bitrix_fixture_generator.command_seed_users:
+    class: Prokl\BitrixFixtureGeneratorBundle\Command\SeedUsersCommand
+    arguments:
+      - '@bitrix_fixture_generator.users_generator'
+    tags:
+      - { name: console.command, comand: migrator:users }

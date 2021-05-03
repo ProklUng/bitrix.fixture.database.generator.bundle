@@ -1,0 +1,110 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  ###################
+  # Основные сервисы
+  ###################
+
+  # Генератор элементов кастомных таблиц.
+  bitrix_fixture_generator.fixture_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\FixtureGenerator
+    arguments: [!tagged_locator { tag: 'fixture_generator.item' }, '@bitrix_fixture_generator.fixture_resolver']
+
+  # Генератор элементов и разделов инфоблока.
+  bitrix_fixture_generator.element_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\IblockDataGenerator
+    arguments:
+      - !tagged_locator { tag: 'fixture_generator.item' }
+      - '@bitrix_fixture_generator.standart_element_mapper'
+      - '@bitrix_fixture_generator.default_properties_processor'
+      - '@bitrix_fixture_generator.iblock_sections_manager'
+      - '@bitrix_fixture_generator.fixture_resolver'
+      - '%bitrix_fixture_generator_ignore_errors%'
+
+  # Генератор элементов hl-инфоблока.
+  bitrix_fixture_generator.hl_element_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\IblockHlDataGenerator
+    arguments:
+      - !tagged_locator { tag: 'fixture_generator.item' }
+      - '@bitrix_fixture_generator.default_properties_processor'
+      - '@bitrix_fixture_generator.hl_manager'
+      - '@bitrix_fixture_generator.fixture_resolver'
+      - '%bitrix_fixture_generator_ignore_errors%'
+
+  # Генератор пользователей.
+  bitrix_fixture_generator.users_generator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\UserGenerator
+    arguments:
+      - '@bitrix_fixture_generator.bitrix_cuser'
+      - '@bitrix_fixture_generator.bitrix_cgroup'
+
+  ##############
+  # Инструменты
+  ##############
+
+  # Битриксовый CIBlockPropertyEnum
+  bitrix_fixture_generator.bitrix_property_enums:
+    public: false
+    class: CIBlockPropertyEnum
+
+  # Битриксовый CUSER.
+  bitrix_fixture_generator.bitrix_cuser:
+    public: false
+    class: CUser
+
+  # Битриксовый CGroup.
+  bitrix_fixture_generator.bitrix_cgroup:
+    public: false
+    class: CGroup
+
+  # Обработчики полей элементов и подразделов по умолчанию.
+  bitrix_fixture_generator.standart_element_mapper:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\StandartIblockDataMapper
+
+  bitrix_fixture_generator.default_properties_processor:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\DefaultPropertiesValueProcessor
+    arguments:
+      - '@bitrix_fixture_generator.iblock_properties_manager'
+
+  # Удаление элементов.
+  bitrix_fixture_generator.iblock_element_eraser:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Iblocks\TruncaterElements
+    arguments: ['@CIBlockElement', '@CFile']
+
+  # Менеджер подразделов.
+  bitrix_fixture_generator.iblock_sections_manager:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Iblocks\IblockSections
+    arguments: ['@CIBlockSection']
+
+  # Менеджер high-load блоков.
+  bitrix_fixture_generator.hl_manager:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Iblocks\HighloadBlock
+
+  # Менеджер свойств инфоблоков.
+  bitrix_fixture_generator.iblock_properties_manager:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Iblocks\IblockProperties
+    arguments: ['@bitrix_fixture_generator.bitrix_property_enums']
+
+  # Заполнение кастомной таблицы тестовыми данными.
+  bitrix_fixture_generator.seeder_db:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\SeedDatabase
+    arguments: [!tagged_locator { tag: 'bitrix_custom_table' }]
+
+  bitrix_fixture_generator.finder_files:
+    class: Symfony\Component\Finder\Finder
+
+ # Локатор классов-фикстур.
+  bitrix_fixture_generator.fixture_class_locator:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Utils\FixtureClassLocator
+    arguments: ['@bitrix_fixture_generator.finder_files', '%bitrix_fixture_generator_fixture_path%']
+
+  # Комплексный загрузчик фикстур.
+  bitrix_fixture_generator.fixture_resolver:
+    class: Prokl\BitrixFixtureGeneratorBundle\Services\Utils\FixtureResolver
+    arguments:
+        - '@bitrix_fixture_generator.fixture_class_locator'
+        - '@annotations.reader'
+        - '%bitrix_fixture_generator_fixture_path%'
