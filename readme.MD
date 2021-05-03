@@ -11,7 +11,7 @@
 Пример конфига(файл `local/configs/packages/bitrix-fixture-generator.yaml`):
  
 ```yaml
-bitrix_database:
+bitrix-fixture-generator:
   # Игнорировать ошибки при создании элементов - сохранение картинок итд.
   ignore_errors: true
 
