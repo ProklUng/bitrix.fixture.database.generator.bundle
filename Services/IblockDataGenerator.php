@@ -294,7 +294,7 @@ class IblockDataGenerator
                 continue;
             }
 
-            $serviceId = $data[$nameField];
+            $serviceId = (string)$data[$nameField];
             if ($this->locator->has($serviceId)) {
                 /** @var FixtureGeneratorInterface $generator */
                 $generator = $this->locator->get($serviceId);
