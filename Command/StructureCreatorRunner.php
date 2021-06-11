@@ -3,7 +3,7 @@
 namespace Prokl\BitrixFixtureGeneratorBundle\Command;
 
 use Exception;
-use Local\Commands\Runner\CommandRunner;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Runner\CommandRunner;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -69,6 +69,5 @@ class StructureCreatorRunner extends Command
             ->run();
 
         return 0;
-
     }
 }

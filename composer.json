@@ -27,9 +27,16 @@
         "symfony/config": "~4|~5",
         "symfony/filesystem": "~4|~5",
         "symfony/console": "~4|~5",
+        "symfony/process": "~4|~5",
+        "symfony/lock": "^4.0 || ^5.0",
+        "doctrine/common": "^3.1",
         "symfony/framework-bundle": "^4.0 || ^5.0",
         "doctrine/annotations": "^1.10",
         "mmo/faker-images": "^0.3.0",
-        "fzaninotto/faker": "^1.9"
+        "fzaninotto/faker": "^1.9",
+        "hanneskod/classtools": "^1.2"
+    },
+    "require-dev": {
+        "proklung/phpunit-testing-tools": "^1.0"
     }
 }
