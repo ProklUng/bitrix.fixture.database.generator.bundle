@@ -400,7 +400,6 @@ class HighloadBlock
      */
     private function checkModules(array $names = []) : bool
     {
-        $names = is_array($names) ? $names : [$names];
         foreach ($names as $name) {
             try {
                 if (!Loader::includeModule($name)) {

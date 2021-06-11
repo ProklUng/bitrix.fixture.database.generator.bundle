@@ -79,11 +79,12 @@ class UserGenerator
         $allUserGroups = array_filter(
             $allUserGroups,
             /** @param integer $item
-             *  @return integer
+             *  @return boolean
              */
-            static function (int $item): int {
+            static function (int $item): bool {
                 return $item !== 1;
-        });
+            }
+        );
 
         $randomKey = random_int(0, count($allUserGroups) - 1);
 

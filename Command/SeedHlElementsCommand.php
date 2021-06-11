@@ -71,7 +71,7 @@ class SeedHlElementsCommand extends Command
     {
         $this->validateParameters($input);
 
-        $truncate = trim($input->getOption('truncate')) === 'true';
+        $truncate = trim((string)$input->getOption('truncate')) === 'true';
         $count = (int)$input->getOption('count');
         $code = $input->getArgument('code');
 
@@ -86,9 +86,7 @@ class SeedHlElementsCommand extends Command
         $output->writeln('Создание элементов в hl-инфоблоке с кодом ' . $code);
 
         for ($i = 1; $i<= $count; $i++) {
-            $result[] = $this->elementGenerator->generate(
-                ['hlblock_code' => $code]
-            );
+            $this->elementGenerator->generate(['hlblock_code' => $code]);
         }
 
         $output->writeln('Элементы hl-инфоблока с кодом ' . $code . ' успешно созданы.');
@@ -119,7 +117,7 @@ class SeedHlElementsCommand extends Command
             );
         }
 
-        if (!is_string($input->getArgument('code'))) {
+        if (!$input->getArgument('code')) {
             throw new InvalidArgumentException(
                 'Параметр truncate должен быть только строкой.'
             );

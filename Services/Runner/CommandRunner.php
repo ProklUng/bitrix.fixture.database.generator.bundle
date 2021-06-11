@@ -284,8 +284,8 @@ class CommandRunner
     {
         if (!$this->openProcesses->isEmpty()) {
             /** @var Process $process */
-            $orgiginProcess = $this->openProcesses->first();
-            $process = $this->modifyCommand($orgiginProcess);
+            $originProcess = $this->openProcesses->first();
+            $process = $this->modifyCommand($originProcess);
             $this->activeProcesses->add($process);
 
             if ($this->progressBar) {
@@ -293,7 +293,7 @@ class CommandRunner
                 $this->progressBar->display();
             }
             $process->start();
-            $this->openProcesses->removeElement($orgiginProcess);
+            $this->openProcesses->removeElement($originProcess);
 
             if ($this->progressBar) {
                 $this->progressBar->setProgress($this->progressBar->getProgress() + 1);

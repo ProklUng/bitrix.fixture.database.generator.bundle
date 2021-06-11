@@ -18,6 +18,7 @@
         <directory name="/"/>
         <ignoreFiles>
             <directory name="vendor"/>
+            <file name="DependencyInjection/Configuration.php"/>
         </ignoreFiles>
     </projectFiles>
     <issueHandlers>
@@ -33,5 +34,65 @@
                 <referencedClass name="Psr\Cache\InvalidArgumentException"/>
             </errorLevel>
         </InvalidThrow>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="/"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+        <InvalidGlobal>
+            <errorLevel type="suppress">
+                <directory name="/"/>
+            </errorLevel>
+        </InvalidGlobal>
+        <InvalidThrow>
+            <errorLevel type="suppress">
+                <directory name="/"/>
+            </errorLevel>
+        </InvalidThrow>
+        <UndefinedMagicMethod>
+            <errorLevel type="suppress">
+                <directory name="/"/>
+            </errorLevel>
+        </UndefinedMagicMethod>
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <file name="Command/SeedDatabaseCommand.php"/>
+                <file name="Services/UserGenerator.php"/>
+                <file name="Services/FixtureGenerator.php"/>
+                <file name="Services/Generators/DateGenerator.php"/>
+                <file name="Services/Generators/ImageIdGenerator.php"/>
+                <file name="Services/Generators/LinkElementGenerator.php"/>
+                <file name="Services/Generators/LinkSectionsGenerator.php"/>
+                <file name="Services/Generators/RandomLinkElementGenerator.php"/>
+                <file name="Services/Generators/RandomLinkSectionGenerator.php"/>
+                <file name="Services/Iblocks/IblockProperties.php"/>
+                <file name="Services/Iblocks/HighloadBlock.php"/>
+                <file name="Services/SeedDatabase.php"/>
+                <file name="Services/Iblocks/TruncaterElements.php"/>
+                <file name="Services/Iblocks/IblockSections.php"/>
+                <file name="Services/IblockHlDataGenerator.php"/>
+                <file name="Services/IblockDataGenerator.php"/>
+                <file name="Services/Generators/UserIdGenerator.php"/>
+                <file name="Services/Generators/ImageGenerator.php"/>
+            </errorLevel>
+        </UndefinedClass>
+        <UndefinedDocblockClass>
+            <errorLevel type="suppress">
+                <file name="Command/SeedDatabaseCommand.php"/>
+                <file name="Services/UserGenerator.php"/>
+                <file name="Services/FixtureGenerator.php"/>
+                <file name="Services/Generators/DateGenerator.php"/>
+                <file name="Services/Generators/ImageIdGenerator.php"/>
+                <file name="Services/Generators/LinkElementGenerator.php"/>
+                <file name="Services/Generators/LinkSectionsGenerator.php"/>
+                <file name="Services/Generators/RandomLinkElementGenerator.php"/>
+                <file name="Services/Generators/RandomLinkSectionGenerator.php"/>
+                <file name="Services/Iblocks/IblockSections.php"/>
+                <file name="Services/SeedDatabase.php"/>
+                <file name="Services/Iblocks/TruncaterElements.php"/>
+                <file name="Services/IblockHlDataGenerator.php"/>
+                <file name="Services/IblockDataGenerator.php"/>
+            </errorLevel>
+        </UndefinedDocblockClass>
      </issueHandlers>
 </psalm>

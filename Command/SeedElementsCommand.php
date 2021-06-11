@@ -79,8 +79,8 @@ class SeedElementsCommand extends Command
         $this->validateParameters($input);
 
         $count = (int)$input->getOption('count');
-        $truncate = trim($input->getOption('truncate')) === 'true';
-        $needSections = trim($input->getOption('sections')) === 'true';
+        $truncate = trim((string)$input->getOption('truncate')) === 'true';
+        $needSections = trim((string)$input->getOption('sections')) === 'true';
 
         $code = $input->getArgument('code');
         $typeIblock = $input->getArgument('type');
@@ -111,7 +111,7 @@ class SeedElementsCommand extends Command
         $output->writeln('Создание элементов в инфоблоке с кодом ' . $code);
 
         for ($i = 1; $i<= $count; $i++) {
-            $result[] = $this->elementGenerator->generate($sections);
+            $this->elementGenerator->generate($sections);
         }
 
         $output->writeln('Элементы инфоблока с кодом ' . $code . ' успешно созданы.');

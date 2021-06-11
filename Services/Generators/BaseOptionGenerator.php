@@ -19,7 +19,7 @@ class BaseOptionGenerator extends AbstractGenerator
      */
     public function generate(?array $payload = null)
     {
-        if (!array_key_exists('options', $payload['params'])) {
+        if ($payload === null || !array_key_exists('options', $payload['params'])) {
             return null;
         }
 
@@ -27,5 +27,4 @@ class BaseOptionGenerator extends AbstractGenerator
 
         return $payload['params']['options'][$key];
     }
-
 }

@@ -84,7 +84,7 @@ class SeedDatabaseCommand extends Command
         $this->validateParameters($input);
 
         $count = (int)$input->getOption('count');
-        $truncate = $input->getOption('truncate') === 'true';
+        $truncate = (string)$input->getOption('truncate') === 'true';
         $table = $input->getArgument('table');
 
         $output->writeln('Looking for entity of table ' . $table);
@@ -122,7 +122,7 @@ class SeedDatabaseCommand extends Command
      */
     private function validateParameters(InputInterface $input) : void
     {
-        if (!is_string($input->getArgument('table'))) {
+        if (!$input->getArgument('table')) {
             throw new InvalidArgumentException('Параметр table должен быть только строкой.');
         }
 
