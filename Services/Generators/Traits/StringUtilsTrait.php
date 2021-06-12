@@ -19,7 +19,7 @@ trait StringUtilsTrait
      * @param string  $src    Альтернативный набор символов.
      *
      * @return string
-     * @throws Exception
+     * @throws Exception Когда не получилось сгенерировать случайное число.
      */
     private function generateRandomString(int $length = 25, string $src = '') : string
     {

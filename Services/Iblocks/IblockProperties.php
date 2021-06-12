@@ -36,7 +36,7 @@ class IblockProperties
      * @param integer|array $code     Код или фильтр.
      *
      * @return array
-     * @throws RuntimeException
+     * @throws RuntimeException Когда не получились данные о свойстве.
      */
     public function getProperty(int $iblockId, $code)
     {
@@ -51,7 +51,7 @@ class IblockProperties
         /* do not use =CODE in filter */
         $property = CIBlockProperty::GetList(['SORT' => 'ASC'], $filter)->Fetch();
         if ($property === false) {
-            throw new RuntimeException('Ошибка получения данных о свойстые.');
+            throw new RuntimeException('Ошибка получения данных о свойстве.');
         }
 
         return $this->prepareProperty($property);

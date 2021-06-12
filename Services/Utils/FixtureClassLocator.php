@@ -53,6 +53,8 @@ class FixtureClassLocator
      *
      * @return array
      * @throws LogicException Фикстура не найдена.
+     *
+     * @psalm-suppress InvalidReturnType
      */
     public function locate(string $fixtureId) : array
     {
@@ -72,6 +74,8 @@ class FixtureClassLocator
      *
      * @return string
      * @throws LogicException Фикстура не найдена.
+     *
+     * @psalm-suppress InvalidReturnType
      */
     public function getFixtureClass(string $fixtureId) : string
     {

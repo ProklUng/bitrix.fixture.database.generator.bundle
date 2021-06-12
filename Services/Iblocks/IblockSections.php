@@ -83,7 +83,10 @@ class IblockSections
         $dbres = $this->ciblockSection::GetList(
             [
                 'SORT' => 'ASC',
-            ], $filter, false, [
+            ],
+            $filter,
+            false,
+            [
                 'ID',
                 'NAME',
                 'CODE',
@@ -111,7 +114,7 @@ class IblockSections
      * @param integer $sectionId ID подраздела.
      * @param array   $fields    Поля.
      *
-     * @throws RuntimeException
+     * @throws RuntimeException Ошибки работы с инфоблоками.
      * @return integer
      */
     public function updateSection(int $sectionId, array $fields) : int
@@ -177,6 +180,8 @@ class IblockSections
     }
 
     /**
+     * Удалить все подразделы.
+     *
      * @param integer $iblockId ID инфоблока.
      */
     public function deleteAllSections(int $iblockId) : void
@@ -188,9 +193,11 @@ class IblockSections
     }
 
     /**
+     * Получить данные.
+     *
      * @param CDBResult $dbres
-     * @param boolean $indexKey
-     * @param boolean $valueKey
+     * @param mixed     $indexKey
+     * @param mixed     $valueKey
      *
      * @return array
      */

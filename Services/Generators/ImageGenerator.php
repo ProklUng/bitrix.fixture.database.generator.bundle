@@ -69,11 +69,11 @@ class ImageGenerator extends AbstractGenerator
         /** @psalm-suppress PossiblyNullArrayAccess */
         $this->ignoreErrors = $payload['ignore_errors'];
         /** @psalm-suppress PossiblyNullArrayAccess */
-        $width = array_key_exists('width', $payload['params'])
+        $width = array_key_exists('width', (array)$payload['params'])
                                     ? $payload['params']['width'] : $this->width;
 
         /** @psalm-suppress PossiblyNullArrayAccess */
-        $height = array_key_exists('height', $payload['params'])
+        $height = array_key_exists('height', (array)$payload['params'])
                                     ? $payload['params']['height'] : $this->height;
 
         /** @noinspection PhpUndefinedMethodInspection */

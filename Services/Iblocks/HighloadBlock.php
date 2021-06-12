@@ -28,6 +28,8 @@ use RuntimeException;
 class HighloadBlock
 {
     /**
+     * Загружен ли модуль highloadblock.
+     *
      * @return boolean
      */
     public function isEnabled() : bool
@@ -136,7 +138,7 @@ class HighloadBlock
         $arResult = [];
 
         while ($arUserField = $dbUserFields->fetch()) {
-            if ($arUserField["USER_TYPE_ID"] === 'enumeration') {
+            if ($arUserField['USER_TYPE_ID'] === 'enumeration') {
                 $fieldEnum = new \CUserFieldEnum();
                 $dbEnums = $fieldEnum->GetList(
                     array(),
@@ -147,7 +149,7 @@ class HighloadBlock
                 }
             }
 
-            $arResult['USER_FIELDS'][$arUserField["FIELD_NAME"]] = $arUserField;
+            $arResult['USER_FIELDS'][$arUserField['FIELD_NAME']] = $arUserField;
         }
 
         return $arResult['USER_FIELDS'][$property] ?? [];
@@ -175,7 +177,7 @@ class HighloadBlock
         $arResult = [];
 
         while ($arUserField = $dbUserFields->fetch()) {
-            if ($arUserField["USER_TYPE_ID"] === 'enumeration') {
+            if ($arUserField['USER_TYPE_ID'] === 'enumeration') {
                 $fieldEnum = new \CUserFieldEnum();
                 $dbEnums = $fieldEnum->GetList(
                     array(),
@@ -186,14 +188,14 @@ class HighloadBlock
                 }
             }
 
-            $arResult[$arUserField["FIELD_NAME"]] = $arUserField;
+            $arResult[$arUserField['FIELD_NAME']] = $arUserField;
         }
 
         return $arResult;
     }
 
     /**
-     * Получает пользовательские поля у объекта
+     * Получает пользовательские поля у объекта.
      *
      * @param mixed $entityId
      *
@@ -224,7 +226,7 @@ class HighloadBlock
      *
      * @param mixed $fieldId
      *
-     * @return array|bool
+     * @return array|boolean
      */
     public function getUserTypeEntityById($fieldId)
     {
@@ -241,6 +243,8 @@ class HighloadBlock
     }
 
     /**
+     * ID сущности.
+     *
      * @param mixed $hlblockName
      *
      * @return string
@@ -295,31 +299,13 @@ class HighloadBlock
     }
 
     /**
-     * @param array $item
+     * Права доступа.
+     *
+     * @param string $hlblockId Символьный код HL блока.
      *
      * @return array
      */
-    private function prepareHlblock(array $item) : array
-    {
-        if (empty($item['ID'])) {
-            return $item;
-        }
-
-        $langs = $this->getHblockLangs($item['ID']);
-        if (!empty($langs)) {
-            $item['LANG'] = $langs;
-        }
-
-        return $item;
-    }
-
-
-    /**
-     * @param string $hlblockId
-     *
-     * @return array
-     */
-    protected function getGroupRights(string $hlblockId) : array
+    public function getGroupRights(string $hlblockId) : array
     {
         $result = [];
         if (!class_exists('\Bitrix\Highloadblock\HighloadBlockRightsTable')) {
@@ -334,7 +320,6 @@ class HighloadBlock
                     ],
                 ]
             )->fetchAll();
-
         } catch (Exception $e) {
             $items = [];
         }
@@ -364,7 +349,26 @@ class HighloadBlock
     }
 
     /**
-     * @param string $hlblockId
+     * @param array $item
+     *
+     * @return array
+     */
+    private function prepareHlblock(array $item) : array
+    {
+        if (empty($item['ID'])) {
+            return $item;
+        }
+
+        $langs = $this->getHblockLangs($item['ID']);
+        if (!empty($langs)) {
+            $item['LANG'] = $langs;
+        }
+
+        return $item;
+    }
+
+    /**
+     * @param string $hlblockId Символьный код HL блока.
      *
      * @return array
      */
@@ -387,7 +391,6 @@ class HighloadBlock
                 ];
             }
         } catch (Exception $e) {
-
         }
 
         return $result;
@@ -421,7 +424,7 @@ class HighloadBlock
     private function getEnumValues($fieldId) : array
     {
         $obEnum = new CUserFieldEnum;
-        $dbres = $obEnum->GetList([], ["USER_FIELD_ID" => $fieldId]);
+        $dbres = $obEnum->GetList([], ['USER_FIELD_ID' => $fieldId]);
 
         return $this->fetchAll($dbres);
     }
